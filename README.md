@@ -2,8 +2,8 @@
 
 ### クローラー
 以下のサイトからログを収集しています．
-- (るる鯖のセッションログ)[https://ruru-jinro.net/searchresult.jsp]
-- (人狼知能 自然言語処理部門 対戦ログ)[https://kanolab.net/aiwolf/2020/main/single/]
+- [るる鯖のセッションログ](https://ruru-jinro.net/searchresult.jsp)
+- [人狼知能 自然言語処理部門 対戦ログ](https://kanolab.net/aiwolf/2020/main/single/)
 
 
 ### アノテーションツール
