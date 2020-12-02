@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <title>アノテーションツール</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  </head>
+  <body>
+    <div class="header">
+      <h1>人狼ログアノテーションツール</h1>
+    </div>
+    <div class="container">
+      <div>
+        <a href={{ data['url'] }}>{{ data['url'] }}</a>
+      </div>
+      <table class="w-50 table table-sm table-striped">
+      {% for name, role in data['namelist'].items() %}
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ role }}</td>
+        </tr>
+      {% endfor %}
+      </table>
+      <form action="/submit" method="POST" enctype="multipart/form-data">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>名前</th>
+              <th>発言</th>
+              <th>意図</th>
+              <th></th>
+            </tr>
+          </thead>
+          {% for log in data['logs'] %}
+            <tr>
+              <td>{{ log['name'] }}</td>
+              <td>{{ log['text'] }}</td>
+              <td>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntCO" name="annotation{{ loop.index0 | string() }}" value="0">
+                  <label class="form-check-label" for="inlineCheckbox1">CO</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntVote" name="annotation{{ loop.index0 | string() }}" value="1">
+                  <label class="form-check-label" for="inlineCheckbox2">VOTE</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntDivined" name="annotation{{ loop.index0 | string() }}" value="2">
+                  <label class="form-check-label" for="inlineCheckbox1">DIVINED</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntEstimate" name="annotation{{ loop.index0 | string() }}" value="3">
+                  <label class="form-check-label" for="inlineCheckbox2">ESTIMATE</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntConfirm" name="annotation{{ loop.index0 | string() }}" value="4">
+                  <label class="form-check-label" for="inlineCheckbox1">CONFIRM</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntRequest" name="annotation{{ loop.index0 | string() }}" value="5">
+                  <label class="form-check-label" for="inlineCheckbox2">REQUEST</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntChat" name="annotation{{ loop.index0 | string() }}" value="6">
+                  <label class="form-check-label" for="inlineCheckbox1">CHAT</label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="anntTrush" name="annotation{{ loop.index0 | string() }}" value="7">
+                  <label class="form-check-label text-danger" for="inlineCheckbox2"><i class="far fa-trash-alt"></i></label>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+        <input class="d-none" id="logId" name="log_id" value="{{ log_id | string() }}">
+        <div class="text-center">
+          <input type="submit" value="送信" class="btn btn-primary" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
