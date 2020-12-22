@@ -28,5 +28,5 @@ python classifier.py --test
 
 ### Note
 - CONFIRM反応しづらいしいらんかな
-- 
-
+- 「占い師」を「人狼」，「村人」に置き換えたりしてAugmentation
+- ユーザー名とか入ってるのを正規化

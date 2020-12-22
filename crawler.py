@@ -151,7 +151,7 @@ class KanoLabCrawler:
                 res = requests.get(tgt_url)
                 soup = BeautifulSoup(res.content, "html.parser")
                 links = soup.select('table a')
-                log_links = [of.write(f'{tgt_url}/{l.text}\n') for l in links if re.match(r'.*?\.log', l.text)]
+                [of.write(f'{tgt_url}/{l.text}\n') for l in links if re.match(r'.*?\.log', l.text)]
 
     def crawl(self):
         urls = [line.strip() for line in open('./data/kanolab/target_urls.txt').readlines()]
