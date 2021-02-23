@@ -96,17 +96,26 @@ def data_split():
 
 if __name__ == "__main__":
     if args.cv:
-        data = [line.strip().split('\t') for line in open('./data/werewolf_recognize_corpus.tsv').readlines()]
+        data_path = './data/werewolf_recognize_corpus.tsv'
+        data = [line.strip().split('\t') for line in open(data_path).readlines()]
         random.shuffle(data)
-        classifier = Classifier()
+        classifier = Classifier(
+            model_path='./models/model.augmented.pkl',
+            vectorizer_path='./models/vectorizer.augmented.pkl',
+            label_dict_path='./models/label_dict.augmented.pkl'
+        )
         accs = []
         for train_data, dev_data in cross_validation_dataloader(data):
             classifier.train(train_data)
             acc = classifier.evaluate(dev_data)
             accs.append(acc)
         print(f'acc. avg.: {np.mean(accs)}')
-    else:
-        classifier = Classifier()
+    elif args.test:
+        classifier = Classifier(
+            model_path='./models/model.augmented.pkl',
+            vectorizer_path='./models/vectorizer.augmented.pkl',
+            label_dict_path='./models/label_dict.augmented.pkl'
+        )
         print('Type message to predict')
         print('[INFO] Type "exit" to quit this system.')
         print()
@@ -117,3 +126,7 @@ if __name__ == "__main__":
             y_pred = classifier.predict([text])[0]
             print(f'== The intent is [{y_pred}]')
             print()
+    else:
+        print('[Usage]')
+        print('--cv:\ttrain and cross validation')
+        print('--test:\ttest by interpreter')

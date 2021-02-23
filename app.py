@@ -31,9 +31,24 @@ def submit():
         # annotation = request.args.get(f'annotation{idx}', default='7', type=str)
         annotation = request.form.get(f'annotation{idx}', default='7', type=str)
         log['annotation'] = id2annotation[annotation]
-    save_annotation(data, log_id)
+    # save_annotation(data, log_id)
 
     return redirect(f'/?log_id={log_id+1}')
+
+@app.route('/annt2')
+def annotation2():
+    data = get_corpus()
+    return render_template('index2.html', data=data)
+
+@app.route('/submit2', methods=['POST'])
+def submit2():
+    data = get_corpus()
+    with open('./data/werewolf_recognize_question_corpus.tsv', 'w') as of:
+        for idx, (text, label) in enumerate(data):
+            annotation = request.form.get(f'annotation{idx}', default='0', type=str)
+            of.write(f'{text}\t{label}\t{annotation}\n')
+    return render_template('index2.html', data=data)
+
 
 @app.route('/stat')
 def stat():
@@ -43,6 +58,10 @@ def stat():
 
 def get_target(log_id):
     data = json.load(open(f'./data/kanolab/raw/werewolf_log{log_id}.json'))
+    return data
+
+def get_corpus():
+    data = [line.strip().split('\t') for line in open('./data/werewolf_recognize_corpus.tsv').readlines()]
     return data
 
 def save_annotation(data, log_id):

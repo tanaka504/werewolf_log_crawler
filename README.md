@@ -27,6 +27,17 @@ python classifier.py --test
 で自分で入力した文の意図を推定できます．
 
 ### Note
-- CONFIRM反応しづらいしいらんかな
-- 「占い師」を「人狼」，「村人」に置き換えたりしてAugmentation
-- ユーザー名とか入ってるのを正規化
+- [x] CONFIRM反応しづらいしいらんかな
+- [x] ユーザー名とか入ってるのを正規化
+- [x] 「占い師」を「人狼」，「村人」に置き換えたりしてAugmentation
+- [ ] (MeCab -> SentencePiece)
+- [ ] 回答が必要か否かのラベル付与 -> アンカーが会ったら必要で十分，何を返すべきかをパターンで分類
+- [ ] 雑談応答
+- [ ] REQUESTの場合の対応
+- [ ] ログ全部分類してみてエラー解析
+
+
+- 初期  Accuracy:0.74
+- ユーザー名初期化  Accuracy:0.7606
+- Data Augmentation Accuracy:0.7620
+
